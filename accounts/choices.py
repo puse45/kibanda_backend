@@ -12,6 +12,7 @@ class COUNTRY_LIST(models.TextChoices):
     TANZANIA = "tanzania", _("Tanzania")
     UGANDA = "uganda", _("Uganda")
     RWANDA = "rwanda", _("Rwanda")
+    SOUTH_SUDAN = "south sudan", _("South Sudan")
 
 
 class ROLES_TYPE(models.TextChoices):

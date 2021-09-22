@@ -54,6 +54,7 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault("is_staff", False)
         extra_fields.setdefault("is_active", False)
         extra_fields.setdefault("is_superuser", False)
+        extra_fields.setdefault("is_verified", True)
         return self._create_user(
             phone_number, first_name, last_name, password, **extra_fields
         )
@@ -66,7 +67,7 @@ class UserManager(BaseUserManager):
         password=None,
         **extra_fields
     ):
-        extra_fields.setdefault("role", ROLES_TYPE[0][0])
+        extra_fields.setdefault("role", ROLES_TYPE.ADMIN)
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_active", True)
         extra_fields.setdefault("is_superuser", True)

@@ -112,7 +112,7 @@ class Customer(BaseModel):
     slug = None
 
     def __str__(self):
-        return f"Customer {self.customer.get_full_name}"
+        return f"Customer {self.customer.full_name}"
 
     class Meta:
         ordering = ("-created_at",)

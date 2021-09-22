@@ -1,6 +1,7 @@
 import os
 
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -24,12 +25,24 @@ class Products(BaseModel):
     price = models.PositiveIntegerField(blank=False, null=False)
     quantity = models.PositiveIntegerField(blank=False, null=False)
     image = models.ImageField(upload_to=get_product_image_dir, null=True, blank=True)
-    country = models.CharField(
-        max_length=15, choices=COUNTRY_LIST.choices, default=COUNTRY_LIST.KENYA
+    country = ArrayField(
+        base_field=models.CharField(
+            max_length=15,
+            choices=COUNTRY_LIST.choices,
+            default=COUNTRY_LIST.KENYA
+        )
     )
+    created_by = models.ForeignKey(
+        User, related_name="product_owner", on_delete=models.PROTECT
+    )
+    slug = None
 
     def __str__(self):
         return f"{self.name} - {self.price}"
+
+    def update_remaining_stock(self,quantity):
+        self.quantity -=quantity
+        self.save()
 
     class Meta:
         ordering = ("-created_at",)
@@ -46,6 +59,7 @@ class Orders(BaseModel):
         User, related_name="customer_order", on_delete=models.PROTECT
     )
     quantity = models.PositiveIntegerField(null=False, blank=False)
+    slug = None
 
     def __str__(self):
         return f"{self.product.name} - {self.customer}"

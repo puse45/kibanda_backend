@@ -3,7 +3,7 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_simplejwt import views as jwt_views
 
-from .views import LoginView, RegisterCustomerView, RegistrationView, UsersView
+from .views import LoginView, RegisterCustomerView, RegistrationView, UsersView, TotalCustomers
 from .viewsets import UserViewSet
 
 app_name = "accounts"
@@ -23,6 +23,7 @@ api_urlpatterns = [
     path("token/refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
     path("token/verify/", jwt_views.TokenVerifyView.as_view(), name="token_verify"),
     path("user/", UsersView.as_view(), name="Users"),
+    path("all/customers", TotalCustomers.as_view(), name="total_customers"),
 ]
 
 urlpatterns = []

@@ -13,6 +13,7 @@ class UserAdmin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "email",
+        "role",
         "is_verified",
         "is_staff",
         "is_active",
@@ -22,6 +23,7 @@ class UserAdmin(admin.ModelAdmin):
         "first_name",
         "last_name",
         "email",
+        "role",
     )
     list_per_page = 20
 
